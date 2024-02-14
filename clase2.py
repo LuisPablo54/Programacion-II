@@ -66,8 +66,8 @@ while True:
         print(f"\nLa suma de {a}/{b} + {c}/{d} + {e}/{f} es {numerador}/{denominador}\n")
     #TAREA
     elif usuario == 3: #Simplificar fracción
-        num1 = 16
-        num2 = 32
+        num1 = 105
+        num2 = 140
         operacion = Simplifacion(num1, num2)
         nuevoNumero1 = int(num1 / operacion)
         nuevoNumero2 = int(num2 / operacion)
