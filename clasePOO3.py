@@ -2,7 +2,7 @@ class Fracciones():
     def __init__(self, prNum, prDen): 
         self.num = int(prNum)
         self.den = int(prDen)
-        self.Simplifacion() #Al ingresar Simplifica, C/u de los valores ingresados se simplifican
+        #self.Simplifacion() #Al ingresar Simplifica, C/u de los valores ingresados se simplifican
         return
 
     def __str__(self):
@@ -10,46 +10,30 @@ class Fracciones():
         return texto
 
     def __add__(self, other):
-        rDen = self.den * other.den
-        rNum = other.den * self.num + self.den * other.num
+        print("Type self", type(self))
+        print("Type other", type(other))
+        #rDen = self.den * other.den
+        #rNum = other.den * self.num + self.den * other.num
         #resultado = Fracciones(rNum, rDen)
         #resultado.Simplifacion()
         #return resultado
-        return Fracciones(rNum, rDen)
+        if (isinstance(other,Fracciones)):
+            den = self.den * other.den
+            num = self.num * other.num + self.num * other.den
+            return Fracciones (num,den)
 
-    def __sub__(self, other):
-        rDen = self.den * other.den
-        rNum = other.den * self.num - self.den * other.num
-        return Fracciones(rNum, rDen)
-    
-    def Simplifacion(self):
-        num1 = self.num
-        num2 = self.den 
-        while num2 != 0:
-            num1, num2 = num2, num1 % num2
-        mcd = num1
-        self.num = self.num / mcd
-        self.den = self.den / mcd
-        return
-    
-    def __mul__(self, other):
-        num1 = self.num * other.num
-        num2 = self.den * other.den
-        return Fracciones(num1, num2)
-    
-    def __truediv__(self, other):
-        num2 = self.num * other.den
-        num1 = self.den * other.num
-        return Fracciones(num1, num2)
+        if (isinstance(other,init)):
+            den = self.den
+            num = self.num + other*self.den
+            return Fracciones (num,den)
+            
+        if (isinstance(other,float)):
+            return self.num / self.den * other
 
-    def Decimal(self):
-        return self.num / self.den
-    
-    def __gt__(self, other):
-        if (self.Decimal() > other.Decimal()):
-            return True
-        else:
-            return False
+            #Si llegue aqui esta mal
+        raise NameErro("Esto no se puede resolver asi")
+            
+               
 
 
 
