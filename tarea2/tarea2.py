@@ -1,26 +1,30 @@
 #Tarea 2
 class Tiempos():
-    def __init__(self, prYear, prMes, prDia, prSeg):
-        self.year = prYear
-        self.Mes = prMes
-        self.Dia = prDia
+    def __init__(self, prDia, prHora, prMin, prSeg):
+        self.dia = prDia
+        self.hora = prHora
+        self.min = prMin
         self.Seg = prSeg
+    
+    def normalizar(self):
+        pass 
 
-
+#Tiempo Uno
 print("\nTiempo uno: ")
-añoI = int(input("Año: "))
-mesI = int(input("Mes: "))
-diaI = int(input("Día: "))
+diaI = int(input("Dia: "))
+horaI = int(input("Hora: "))
+minutoI = int(input("Minuto: "))
 segundoI = int(input("Segundos: "))
-
+#Tiempo dos
 print("\nTiempo dos: ")
-añoII = int(input("Año: "))
-mesII = int(input("Mes: "))
-diaII = int(input("Día: "))
+diaII = int(input("Dia: "))
+horaII = int(input("Hora: "))
+minutoII = int(input("Minuto: "))
 segundoII = int(input("Segundos: "))
 
-fechaI = (añoII, mesII, diaII, segundoII)
-fechaII = (añoI, mesI, diaI, segundoI)
+
+fechaI = (diaI, horaI, minutoI, segundoI)
+fechaII = (diaII, horaII, minutoII, segundoII)
 
 print(fechaI)
 print(fechaII)
