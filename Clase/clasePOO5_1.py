@@ -1,29 +1,61 @@
 #Publico y privado
+#Estado de cuenta
 
-class MiClase():
-    def __init__(self):
-        self.__propiedadPrivda = 50 #Dos __ al inicio significa privada
-        self.propiedadPublica = 30
+class EstadoCuenta():
+
+    def __init__(self,pr_nombre,pr_saldoInicial):
+        self.__saldo = 0
+        self.__nombre = pr_nombre
+        self.__movimientos = []
+        self.__cntGetSaldo = 0
+        self.Movimiento("Deposito inicial", pr_saldoInicial)
         return
+
+    def Movimiento(self,pr_descripcion,pr_monto):
+        movimiento = (pr_descripcion, pr_monto)
+        self.__movimientos.append(movimiento)
+        self.__saldo += pr_monto
+        return
+
     def imprime(self):
-        print("publica: ", self.propiedadPublica)
-        print("publica: ", self.__propiedadPrivda)
-    
-    def __privado(self):
-        print("Este es un metodo privado: ", self.__propiedadPrivda)
-        return
-    
-    def publico(self):
-        print("Este es un metodo publico: ", self.propiedadPublica)
-        self.__privado()
-        return
-    
-#Incio del programa:
+        print(self.__nombre," Saldo: $", self.__saldo)
+        for mov in self.__movimientos:
+            print(mov)
+        print("El saldo se ha consultado ", self.__cntGetSaldo)
+        print("Fin de estado de cuenta")
 
-A = MiClase()
+    def getSaldo(self):
+        self.__cntGetSaldo += 1
+        return self.__saldo
+    
+    class Banco():
+        __Cuentas = []
 
-print(A.propiedadPublica)
-#print(A.__propiedadPrivda) Marca error al ser privado la variable 
+        def __init__(self):
+            self.__Cuentas = []
 
-A.imprime()
-A.publico()
+        def AgregaCuenta(self,objEstadoDeCuentas, cls):
+            if isinstance(objEstadoDeCuentas, EstadoCuenta):
+                cls.__Cuentas.append(objEstadoDeCuentas)
+            else:
+                print("El argumento no es de tipo EstadoCuenta.")
+           
+            pass
+            
+            
+            
+            
+
+
+#Programa principal
+CuentaJuan=EstadoCuenta("Juan",1000)
+CuentaJuan.Movimiento("Deposito",500)
+CuentaJuan.Movimiento("Retiro",-300)
+
+saldoActual=CuentaJuan.getSaldo()
+print("Saldo actual:",saldoActual)
+
+
+#print(CuentaJuan.__saldo)  #no funciona
+#print(CuentaJuan.__movimientos) #no funciona
+#print(CuentaJuan.__nombre) #no funciona
