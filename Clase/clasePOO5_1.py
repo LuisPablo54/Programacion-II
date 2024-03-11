@@ -1,59 +1,71 @@
 #Publico y privado
 #Estado de cuenta
-
-class EstadoCuenta():
-
-    def __init__(self,pr_nombre,pr_saldoInicial):
-        self.__saldo = 0
-        self.__nombre = pr_nombre
+class EstadoCuenta:
+    def __init__(self, nombre, saldo_inicial):
+        self.__saldo = saldo_inicial
+        self.__nombre = nombre
         self.__movimientos = []
         self.__cntGetSaldo = 0
-        self.Movimiento("Deposito inicial", pr_saldoInicial)
-        return
 
-    def Movimiento(self,pr_descripcion,pr_monto):
-        movimiento = (pr_descripcion, pr_monto)
-        self.__movimientos.append(movimiento)
-        self.__saldo += pr_monto
-        return
+    def Movimiento(self, descripcion, monto):
+        if monto < 0 and self.__saldo < abs(monto):
+            print("No se puede retirar más dinero del que se tiene en la cuenta")
+        else:
+            movimiento = (descripcion, monto)
+            self.__movimientos.append(movimiento)
+            self.__saldo += monto
 
     def imprime(self):
-        print(self.__nombre," Saldo: $", self.__saldo)
+        print(self.__nombre, "Saldo: $", self.__saldo)
         for mov in self.__movimientos:
             print(mov)
-        print("El saldo se ha consultado ", self.__cntGetSaldo)
-        print("Fin de estado de cuenta")
+        print("El saldo se ha consultado", self.__cntGetSaldo)
 
     def getSaldo(self):
         self.__cntGetSaldo += 1
         return self.__saldo
+
+class Banco:
+    __Cuentas = []
+
+    def __init__(self, *cuentas):
+        for cuenta in cuentas:
+            self.AgregaCuenta(cuenta)
+
+    def AgregaCuenta(self, objEstadoDeCuentas):
+        if isinstance(objEstadoDeCuentas, EstadoCuenta):
+            self.__Cuentas.append(objEstadoDeCuentas)
+            NumCuenta = self.__Cuentas.index(objEstadoDeCuentas)
+            return NumCuenta
+        else:
+            print("El argumento no es de tipo EstadoCuenta.")
+
+    def imprimeCuenta(self, NumCuenta):
+        if 0 <= NumCuenta < len(self.__Cuentas):
+            self.__Cuentas[NumCuenta].imprime()
+        else:
+            print("Número de cuenta fuera de rango.")
     
-    class Banco():
-        __Cuentas = []
+    def bancoMovimiento(self, NumCuenta, Descripcion, monto):
+        self.__Cuentas[NumCuenta].Movimiento(Descripcion, monto)
 
-        def __init__(self):
-            self.__Cuentas = []
+    def getSaldo(self, NumCuenta):
+        if 0 <= NumCuenta < len(self.__Cuentas):
+            return self.__Cuentas[NumCuenta].getSaldo()
+        else:
+            print("Número de cuenta fuera de rango.")
+            return None
 
-        def AgregaCuenta(self,objEstadoDeCuentas, cls):
-            if isinstance(objEstadoDeCuentas, EstadoCuenta):
-                cls.__Cuentas.append(objEstadoDeCuentas)
-            else:
-                print("El argumento no es de tipo EstadoCuenta.")
-           
-            pass
-            
-            
-            
-            
+# Programa principal
+CuentaJuan = EstadoCuenta("Juan", 1000)
+CuentaJuan.Movimiento("Depósito", 500)
+CuentaJuan.Movimiento("Retiro", -300)
 
+CuentaLuis = EstadoCuenta("Luis", 3424)
+CuentaAndre = EstadoCuenta("Andre", 2000)
+MiBanco = Banco(CuentaJuan, CuentaAndre, CuentaLuis)
 
-#Programa principal
-CuentaJuan=EstadoCuenta("Juan",1000)
-CuentaJuan.Movimiento("Deposito",500)
-CuentaJuan.Movimiento("Retiro",-300)
-
-saldoActual=CuentaJuan.getSaldo()
-print("Saldo actual:",saldoActual)
+MiBanco.imprimeCuenta(0)  # Imprime la cuenta
 
 
 #print(CuentaJuan.__saldo)  #no funciona
