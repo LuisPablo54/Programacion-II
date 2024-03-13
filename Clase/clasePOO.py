@@ -1,14 +1,14 @@
 #Calificaciones
-def Promedio(parcial1, parcial2, parcial3):
+def Promedio(parcial1, parcial2, parcial3): #funtion to calculate the average of 3 partials
     suma = parcial1 + parcial2 + parcial3
     return suma/3
 #Progrma Principal
-Nombre = ["Juan", "pedro", "Luis", "Paco", "Eduardo"]
-
+Nombre = ["Juan", "pedro", "Luis", "Paco", "Eduardo"] #List of names
+ 
 Parcial1 = [7, 6, 8, 0, 9]
 Parcial2 = [8, 7, 7, 8, 9]
 Parcial3 = [3, 8, 8, 7, 9]
-print("  Nombre  | Parcial 1  |  Parcial 2 |  Parcial 1 |  Promedio  |")
+print("  Nombre  | Parcial 1  |  Parcial 2 |  Parcial 1 |  Promedio  |") #Print the header of the table
 print("__________|____________|____________|____________|____________|")
 for index in range(0, len(Nombre)):
    promedio = Promedio(Parcial1[index], Parcial2[index], Parcial3[index])

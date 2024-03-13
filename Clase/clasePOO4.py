@@ -1,12 +1,12 @@
 #Variables estaticas: son de la Clase, no del objeto
 #                     son compartidas por todos lo objetos
 #Clase:
-class Circulo():
+class Circulo(): #Class for circles
 
     variableEstatica = 20 #La variable estatica se queda dentro de la clase
     nuevaSerie = 0
 
-    def __init__(self, prRadio):
+    def __init__(self, prRadio): #Constructor
         self.radio = prRadio
         Circulo.nuevaSerie += 1
         self.numeroSerie = Circulo.nuevaSerie

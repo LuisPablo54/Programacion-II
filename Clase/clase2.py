@@ -1,12 +1,12 @@
 #Luis Pablo López Iracheta 192301-9
 #Operaciones de fracciones
 #Funciones para realizar operación
-def SumaFracciones(a, b, c, d):
+def SumaFracciones(a, b, c, d): #Funntion for make the sum of two fractions
     numerador = (a * d) + (b * c)
     denominador = b * d
     return (numerador, denominador)
 
-def Simplifacion(num1, num2): 
+def Simplifacion(num1, num2): #Functin for simplify the fraction
     if num2 == 0:
         return num1
     return Simplifacion(num2, num1 % num2)
@@ -16,7 +16,7 @@ def Producto(num1, den1, num2, den2):
     nuevoNumerador = num1 * num2
     nuevoDenominador =  den1 * den2
 
-    operacionSimplicado = Simplifacion(nuevoNumerador, nuevoDenominador)
+    operacionSimplicado = Simplifacion(nuevoNumerador, nuevoDenominador) #Simplication of the fraction
 
     numeradorSimplificado = nuevoNumerador // operacionSimplicado
     denominadorSimplificado = nuevoDenominador // operacionSimplicado
@@ -27,7 +27,7 @@ def Divicion(num1, den1, num2, den2):
     nuevoNumerador = num1 * den2
     nuevoDenominador =  den1 * num2
 
-    operacionSimplicado = Simplifacion(nuevoNumerador, nuevoDenominador)
+    operacionSimplicado = Simplifacion(nuevoNumerador, nuevoDenominador)#Simplication of the fraction
 
     numeradorSimplificado = nuevoNumerador // operacionSimplicado
     denominadorSimplificado = nuevoDenominador // operacionSimplicado
