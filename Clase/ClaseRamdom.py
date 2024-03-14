@@ -1,5 +1,6 @@
 # Generador de números distribución normal
 import random
+import matplotlib.pyplot as plt
 
 # Genera una lista de 100 números distribuidos normalmente con media 100 y desviación estándar 15
 resultado = []
@@ -25,6 +26,7 @@ while LimiteInferior <= 170:
 
 # Muestra las clases y las cuentas iniciales
 print("Clases:", classses)
+# Grafica los resultados de classses
 print("Cuenta:", cuenta)
 
 # Cuenta cuántos elementos caen en cada clase
@@ -41,3 +43,9 @@ for i in range(0, len(classses) - 1):
 
 #Tarea
 #Graficar con matplot
+plt.hist(resultado, bins=classses, color='red', edgecolor='black')
+plt.xlabel('Clases')
+plt.ylabel('Cuenta')
+plt.title('Distribución de números')
+plt.grid(True)
+plt.show()
