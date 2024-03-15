@@ -43,4 +43,9 @@ for i in range(0, len(clases) - 1):
 
 #Tarea
 #Graficar con matplot
-plt.hist(resultado, bins=clases, color='red', edgecolor='black'); plt.show()
+plt.hist(resultado, bins=clases, color='red', edgecolor='black')
+plt.xlabel('Clases')
+plt.ylabel('Cuenta')
+plt.title('Distribución de números')
+plt.grid(True)
+plt.show()
