@@ -52,10 +52,12 @@ print("\nSegunda simulacion")
 maximaDiferencia = 0
 menorDiferencia = 100
 caso1 = 0 # El candidato B gana
-for i in range(1, 10001): #Ejercicio 8 serian 10,000 simulaciones
+print("Simulacion de 2000 elecciones")
+
+for i in range(1, 2001): #Ejercicio 8 serian 10,000 simulaciones
     contador1, contador2, contador3 = simunlacionVotos()
     contador1 = (contador1 * 0.50) # Tiene un 50% de abstinencia
-    contador2 = (contador2 * 0.59) # Tiene un 41% de abstinencia
+    contador2 = (contador2 * 0.59) # Tiene un 45% de abstinencia
     contador3 = (contador3 * 0.47) # Tiene un 53% de abstinencia
 
     if contador2 > contador3:
@@ -68,8 +70,9 @@ for i in range(1, 10001): #Ejercicio 8 serian 10,000 simulaciones
     if contador3 - contador2 < menorDiferencia:
         menorDiferencia = contador3 - contador2
 
+
 print("El candidato B gana: ", caso1, "veces")
 porcentaje = (caso1 * 100) / 2000
-print("El porcentaje de veces que gana el candidato B es: ", porcentaje / 10, "%")
+print("El porcentaje de veces que gana el candidato B es: ", porcentaje , "%")
 print("La maxima diferencia de votos es: ", maximaDiferencia / 10, "%")
 print("La menor diferencia de votos es: ", menorDiferencia / 10, "%")
