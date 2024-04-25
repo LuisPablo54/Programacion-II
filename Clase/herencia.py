@@ -8,17 +8,17 @@ class Persona:
     def NombreCompleto(self):
         return self.apellido + ", " + self.nombres
     
-class Estudiante():
-    def __init__(self, nombre, apellido, matricula):
-        print("Creando un estudiante")
-        self.nombre = nombre
-        self.apellido = apellido
-        self.matricula = matricula
+class Estudiante(Persona):
+    def __init__(self, nombre, apellido, num_cuenta):
+        self.num_cuenta = num_cuenta
+        #Invocamos el constructor de la clase base
+        Persona.__init__(self, nombre, apellido)
+        return
 
-    def NombreCompleto(self):
-        return self.apellido + ", " + self.nombre
-    
+    def cuenta(self, cuenta):
+        self.cuenta = cuenta
+        return
 #Programa principal
 
 Juan = Persona("Juan", "Perez")
-Arturo = Estudiante("Arturo", "Gomez", 12345)
+Arturo = Estudiante("Arturo", "Gomez")
