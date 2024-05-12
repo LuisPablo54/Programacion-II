@@ -48,9 +48,9 @@ class Jugador:
             self.y += dy
 
     def draw(self): #dibuja el jugador
-        pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100), 
-                     (self.x * 100 + Confi.ancho * math.cos(self.angle),
-                        self.y * 100 + Confi.ancho * math.sin(self.angle)), 2) 
+        #pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100), 
+        #            (self.x * 100 + Confi.ancho * math.cos(self.angle),
+        #               self.y * 100 + Confi.ancho * math.sin(self.angle)), 2) 
         pg.draw.circle(self.game.screen, 'green', (int(self.x * 100), int(self.y * 100)), 15)
 
     def update(self): #actualiza el jugador

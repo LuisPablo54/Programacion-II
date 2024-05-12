@@ -4,9 +4,9 @@ import pygame
 import sys
 import configuracion as CP
 
-
 from mapa import *
 from jugador import *
+from raycasting import *
 
 #creamos la ventana del juego
 tamano=(CP.Confi.ancho,CP.Confi.alto)
@@ -19,15 +19,17 @@ class Game:
         self.clock = pygame.time.Clock()
         self.dalta_Tiempo_s = 1
         self.new_game()
-        return
+        
     
     def new_game(self): #inicializa variables
         self.map = Map(self) #crea el mapa
         self.jugador = Jugador(self) #crea el jugador
-        return  
+        self.raycating = RayCasting(self) #crea el raycasting
+         
     
     def update(self): #actualiza variables
         self.jugador.update() #actualiza el jugador
+        self.raycating.update() #actualiza el raycasting
         pygame.display.flip()
         self.dalta_Tiempo_s = self.clock.tick(60)
         pygame.display.set_caption(f'{self.clock.get_fps() :.1f}')
@@ -50,3 +52,6 @@ class Game:
                 pygame.quit() #cierra la ventana
                 sys.exit()
 
+if __name__ == '__main__':
+    game = Game()
+    game.run()
