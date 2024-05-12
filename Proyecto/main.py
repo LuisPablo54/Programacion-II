@@ -40,16 +40,13 @@ class Game:
 
     def run(self): #bucle principal
         while True:
-            self.check_events()
-            self.update()
-            self.draw()
+            self.check_events() #comprueba eventos
+            self.update() #actualiza variables
+            self.draw() #dibuja en pantalla
 
-    def check_events(self):
-        for event in pygame.event.get():
+    def check_events(self): #comprueba eventos
+        for event in pygame.event.get(): 
             if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-                pygame.quit()
+                pygame.quit() #cierra la ventana
                 sys.exit()
 
-if __name__ == '__main__':
-    game = Game()
-    game.run()  

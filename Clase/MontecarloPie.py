@@ -37,7 +37,7 @@ EsteCuadrado = Cuadrado(50, 50, 20)  # Cambia el centro del cuadrado a (50, 50)
 cntCuadrado = 0 #Gotas dentro del cuadrado
 cntCirculo = 0 #Gotas dentro del círculo
 
-for i in range(1, 500000): #Simula 100 gotas de lluvia
+for i in range(1, 1000): #Simula 100 gotas de lluvia
     xGota = random.uniform(0, 100.0)
     yGota = random.uniform(0, 100.0)
     if EsteCuadrado.Dentro(xGota, yGota) == True: #Si la gota está dentro del cuadrado

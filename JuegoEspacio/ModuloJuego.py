@@ -6,16 +6,20 @@ class Juego():
     
     def __init__(self):
         self.EsteTablero = Tablero()
-        self.Nave = Nave(50, 50, 10, 120, "C:\IBERO\Programacion-II\JuegoEspacio\Enterprise.png") #posicion x, posicion y, velocidad, angulo
+        self.Nave = Nave(50, 50, 15, 20,
+                          "C:\IBERO\Programacion-II\JuegoEspacio\Enterprise.png", pygame.K_LEFT,pygame.K_RIGHT ) #posicion x, posicion y, velocidad, angulo
+        self.Nave2 = Nave(50, 50, 15, -30,"C:\IBERO\Programacion-II\JuegoEspacio\Raptor.png", pygame.K_a,pygame.K_d )
         return
     
     def dibuja (self, screen):
         self.EsteTablero.dibuja(screen)
         self.Nave.dibuja(screen)  
+        self.Nave2.dibuja(screen)
         return
     
     def ActualizaVariables(self):
         self.Nave.avanza()
+        self.Nave2.avanza()
         return
 
 class Tablero():
@@ -65,13 +69,26 @@ class Cuerpo():
         return
     
 class Nave(Cuerpo):
-    def __init__(self, pr_x, pr_y, pr_v, pr_alfa_deg, pr_img):
+    def __init__(self, pr_x, pr_y, pr_v, pr_alfa_deg, pr_img, pr_keyleft, pr_keyright):
         super().__init__(pr_x, pr_y, pr_v, pr_alfa_deg)
         self.imagen = pygame.image.load(pr_img)
+        
+        self.keyleft = pr_keyleft
+        self.keyright = pr_keyright
 
     def dibuja(self, screen):
-        rect = self.imagen.get_rect()
+        imgGira = pygame.transform.rotate(self.imagen, -self.alfa_deg)
+        rect = imgGira.get_rect()
         rect.centerx = self.x
         rect.centery = self.y
-        screen.blit(self.imagen, rect)
+        screen.blit(imgGira, rect)
         super().dibuja(screen)
+
+    def avanza(self):
+        key = pygame.key.get_pressed()
+        if key[self.keyleft]:
+            self.alfa_deg = self.alfa_deg - 10
+        if key[self.keyright]:
+            self.alfa_deg = self.alfa_deg + 10
+        Cuerpo.avanza(self)
+        return

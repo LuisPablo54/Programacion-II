@@ -21,4 +21,5 @@ class Estudiante(Persona):
 #Programa principal
 
 Juan = Persona("Juan", "Perez")
-Arturo = Estudiante("Arturo", "Gomez")
+Arturo = Estudiante("Arturo", "Gomez", 134223)
+
