@@ -1,60 +1,73 @@
-#primer programa en pygame
-#principio de pong
-import pygame
+#Importamos la librerias necesarias
+import pygame as pg
 import sys
-import configuracion as CP
 
-from mapa import *
-from jugador import *
+#Importamos los modulos necesarios
+from settings import *
+from map import *
+from player import *
 from raycasting import *
-from objetos import *
+from object_renderer import *
+from sprite_object import *
+from object_handler import *
+from weapon import *
+from sound import *
+from pathfinding import * #Modelo de busqueda de caminos
 
-#creamos la ventana del juego
-tamano=(CP.Confi.ancho,CP.Confi.alto)
-screen=pygame.display.set_mode(tamano)
 
 class Game:
-    def __init__(self): #constructor
-        pygame.init()
-        self.screen = pygame.display.set_mode(tamano)
-        self.clock = pygame.time.Clock()
-        self.dalta_Tiempo_s = 1
-        self.new_game()
+    def __init__(self):
+        pg.init() # Inicializamos pygame
+        pg.mouse.set_visible(False) # Ocultamos el cursor del raton
+        self.screen = pg.display.set_mode(RES) # Creamos la ventana del juego
+        pg.event.set_grab(True) # Capturamos el raton
+        self.clock = pg.time.Clock() # Creamos un reloj para controlar el tiempo
+        self.delta_time = 1 # Variable para controlar el tiempo
+        self.global_trigger = False # Variable para controlar los eventos globales
+        self.global_event = pg.USEREVENT + 0 # Creamos un evento global
+        pg.time.set_timer(self.global_event, 40) # Establecemos un temporizador para el evento global
+        self.new_game() 
+
+    def new_game(self): # Creamos una nueva partida
+        self.map = Map(self) 
+        self.player = Player(self) 
+        self.object_renderer = ObjectRenderer(self)
+        self.raycasting = RayCasting(self)
+        self.object_handler = ObjectHandler(self) 
+        self.weapon = Weapon(self)
+        self.sound = Sound(self)
+        self.pathfinding = PathFinding(self) 
+        pg.mixer.music.play(-1)
+ 
+    def update(self): # Actualizamos el juego
+        self.player.update()
+        self.raycasting.update()
+        self.object_handler.update()
+        self.weapon.update()
+        pg.display.flip() # Actualizamos la pantalla
+        self.delta_time = self.clock.tick(FPS)
+        pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
+
+    def draw(self): # Dibujamos el juego
+        self.object_renderer.draw()
+        self.weapon.draw()
         
-    
-    def new_game(self): #inicializa variables
-        self.map = Map(self) #crea el mapa
-        self.jugador = Jugador(self) #crea el jugador
-        self.objetos = ObjetoRender(self) #crea las texturas
-        self.raycating = RayCasting(self) #crea el raycasting
-         
-    
-    def update(self): #actualiza variables
-        self.jugador.update() #actualiza el jugador
-        self.raycating.update() #actualiza el raycasting
-        pygame.display.flip()
-        self.dalta_Tiempo_s = self.clock.tick(60)
-        pygame.display.set_caption(f'{self.clock.get_fps() :.1f}')
 
-    def draw(self): #dibuja en pantalla
-        self.screen.fill('black')
-        #self.map.draw()
-        #self.jugador.draw()
-        return
-
-    def run(self): #bucle principal
-        while True:
-            self.check_events() #comprueba eventos
-            self.update() #actualiza variables
-            self.draw() #dibuja en pantalla
-
-    def check_events(self): #comprueba eventos
-        for event in pygame.event.get(): 
-            if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
-                pygame.quit() #cierra la ventana
+    def check_events(self): # Comprobamos los eventos
+        self.global_trigger = False
+        for event in pg.event.get():
+            if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
+                pg.quit()
                 sys.exit()
+            elif event.type == self.global_event:
+                self.global_trigger = True
+            self.player.single_fire_event(event)
+
+    def run(self):
+        while True:
+            self.check_events()
+            self.update()
+            self.draw()
 
 
-# if __name__ == '__main__':
-#     game = Game()
-#     game.run()
+
