@@ -5,13 +5,16 @@ from configuracion import *
 class RayCasting: #Clase principal
     def __init__(self, game):
         self.game = game #Se crea una variable para el juego
+        self.ray_casting_result = []
+        self.objects_to_render = []
+        self.textures = self.game.object_renderer.wall_textures
 
     def ray_cast(self):
-        ox, oy = self.game.jugador.pos
+        ox, oy = self.game.jugador.pos()
         x_map, y_map = self.game.jugador.map_pos
 
         ray_angle = self.game.jugador.angle - Confi.HALF_FOV + 0.0001
-        for i in range(0,800):
+        for ray in range(0,800):
             sin_a = math.sin(ray_angle)
             cos_a = math.cos(ray_angle)
 
@@ -26,7 +29,8 @@ class RayCasting: #Clase principal
 
             for i in range(0,20):
                 tile_hor = int(x_hor), int(y_hor)
-                if tile_hor in self.game.mapa.world_map:
+                if tile_hor in self.game.map.world_map:
+                    
                     break
                 x_hor += dx
                 y_hor += dy
@@ -43,7 +47,7 @@ class RayCasting: #Clase principal
 
             for i in range(0,20):
                 tile_vert = int(x_vert), int(y_vert)
-                if tile_vert in self.game.mapa.world_map:
+                if tile_vert in self.game.map.world_map:
                     break
                 x_vert += dx
                 y_vert += dy
@@ -54,14 +58,18 @@ class RayCasting: #Clase principal
                 depth = depth_vert
             else:
                 depth = depth_hor
+            
+            # Quitar el efecto de ojo de pez
+            depth *= math.cos(self.game.jugador.angle - ray_angle)
 
-            #Digujar
-            pg.draw.line(self.game.screen, 'yellow', (100 * ox, oy * 100),
-                          (100 * ox + 100 * depth * cos_a, 100 * oy + 100 * depth * sin_a), 2)
+            proj_height = Confi.SCREEN_DIST / (depth + 0.0001)
+            color = [150 / (1 + depth * depth ** 5 * 0.00002)] * 3
+            pg.draw.rect(self.game.screen, color, (ray * Confi.Escala, Confi.HALF_HEIGHT - proj_height // 2, Confi.Escala, proj_height))
+
 
             ray_angle += Confi.DELTA_ANGLE
     def update(self):
-        pass
+        self.ray_cast()
     
     
 

@@ -55,9 +55,10 @@ class Jugador:
 
     def update(self): #actualiza el jugador
         self.movimiento()
-
-    def pos(self): #posicion del jugador
+        
+    def pos(self):
         return self.x, self.y
-    
-    def map_pos(self): #posicion en el mapa
+
+    @property
+    def map_pos(self):
         return int(self.x), int(self.y)

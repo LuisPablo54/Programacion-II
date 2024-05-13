@@ -7,6 +7,7 @@ import configuracion as CP
 from mapa import *
 from jugador import *
 from raycasting import *
+from objetos import *
 
 #creamos la ventana del juego
 tamano=(CP.Confi.ancho,CP.Confi.alto)
@@ -24,6 +25,7 @@ class Game:
     def new_game(self): #inicializa variables
         self.map = Map(self) #crea el mapa
         self.jugador = Jugador(self) #crea el jugador
+        self.objetos = ObjetoRender(self) #crea las texturas
         self.raycating = RayCasting(self) #crea el raycasting
          
     
@@ -36,8 +38,8 @@ class Game:
 
     def draw(self): #dibuja en pantalla
         self.screen.fill('black')
-        self.map.draw()
-        self.jugador.draw()
+        #self.map.draw()
+        #self.jugador.draw()
         return
 
     def run(self): #bucle principal
@@ -52,6 +54,7 @@ class Game:
                 pygame.quit() #cierra la ventana
                 sys.exit()
 
-if __name__ == '__main__':
-    game = Game()
-    game.run()
+
+# if __name__ == '__main__':
+#     game = Game()
+#     game.run()
